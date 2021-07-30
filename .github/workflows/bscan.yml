@@ -12,13 +12,13 @@ jobs:
 
       - name: 添加执行权限
         run: |
-          chmod a+x ./
+          chmod a+x ./bscan_linux_amd64
         shell: bash
 
 
       - name: 开始bscan扫描
         run: |
-          ./bscan -target target.txt -ports 80,443,8080-8090 -filter response.status==200
+          ./bscan_linux_amd64 -target target.txt -ports 80,443,8080-8090 -filter response.status==200
         shell: bash
 
       - name: Push changes
