@@ -1,1 +1,28 @@
+name: bscan扫描
 
+on:
+    workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: 添加执行权限
+        run: |
+          chmod a+x ./
+        shell: bash
+
+
+      - name: 开始bscan扫描
+        run: |
+          ./bscan -target target.txt -ports 80,443,8080-8090 -filter response.status==200
+        shell: bash
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
